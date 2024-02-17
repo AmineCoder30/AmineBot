@@ -19,3 +19,6 @@ bot.on("message", (msg) => {
     });
   }
 });
+const webhookUrl = "https://amine-bot.vercel.app/api/telegram-bot";
+
+bot.setWebHook(webhookUrl);
