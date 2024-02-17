@@ -2,10 +2,13 @@
   "name": "amine3006",
   "version": "1.0.0",
   "description": "simple bot for telegram",
-  "main": "index.js",
+    "main": "index.js",
+  "engines": {
+    "node": "18.x"
+  },
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "author": "amine mohamed",
   "license": "ISC",
