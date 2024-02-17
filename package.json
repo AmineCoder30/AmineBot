@@ -1,0 +1,17 @@
+{
+  "name": "amine3006",
+  "version": "1.0.0",
+  "description": "simple bot for telegram",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "amine mohamed",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.4",
+    "env": "^0.0.2",
+    "node-telegram-bot-api": "^0.64.0"
+  }
+}
