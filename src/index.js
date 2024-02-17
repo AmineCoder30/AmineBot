@@ -1,11 +1,17 @@
-// const TelegramBot = require("node-telegram-bot-api");
 import TelegramBot from "node-telegram-bot-api";
 import questionList from "./Question.js";
+import http from "http";
 import dotenv from "dotenv";
 dotenv.config();
 
-const token = process.env.TELEGRAM_BOT_TOKEN; // Replace with your own bot token
+const token = process.env.TELEGRAM_BOT_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
+const port = process.env.PORT;
+http.createServer(function (req, res) {
+    res.write("Hello!");
+    res.end();
+  })
+  .listen(port);
 
 bot.on("message", (msg) => {
   const item = questionList[Math.floor(Math.random() * questionList.length)];
@@ -19,6 +25,3 @@ bot.on("message", (msg) => {
     });
   }
 });
-const webhookUrl = "https://amine-bot.vercel.app/api/telegram-bot";
-
-bot.setWebHook(webhookUrl);
