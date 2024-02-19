@@ -1,20 +1,19 @@
 {
-  "name": "amine3006",
+  "name": "down-bot",
   "version": "1.0.0",
-  "description": "simple bot for telegram",
-    "main": "index.js",
-  "engines": {
-    "node": "18.x"
-  },
-  "type": "module",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "amine mohamed",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.6.7",
+    "body-parser": "^1.20.2",
     "dotenv": "^16.4.4",
-    "env": "^0.0.2",
+    "express": "^4.18.2",
     "node-telegram-bot-api": "^0.64.0"
   }
 }
