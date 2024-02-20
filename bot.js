@@ -4,43 +4,37 @@ const axios = require('axios');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
-const { TELEGRAM_TOKEN, SERVER_URL } = process.env;
-const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_TOKEN}`;
-const URI = `/webhook/${TELEGRAM_TOKEN}`;
-const WEBHOOK_URL = SERVER_URL + URI;
+/**
+ * This example demonstrates setting up webhook
+ * on the Heroku platform.
+ */
 
-const app = express();
-app.use(bodyParser.json());
 
-const init = async () => {
-    try {
-        const res = await axios.get(`${TELEGRAM_API}/setWebhook?url=${WEBHOOK_URL}`);
-        console.log(res.data);
-    } catch (error) {
-        console.error('Error setting up webhook:', error.message);
-    }
+const TOKEN = process.env.TELEGRAM_TOKEN ;
+const options = {
+  webHook: {
+    // Port to which you should bind is assigned to $PORT variable
+    // See: https://devcenter.heroku.com/articles/dynos#local-environment-variables
+    port: process.env.PORT
+    // you do NOT need to set up certificates since Heroku provides
+    // the SSL certs already (https://<app-name>.herokuapp.com)
+    // Also no need to pass IP because on Heroku you need to bind to 0.0.0.0
+  }
 };
+// Heroku routes from port :443 to $PORT
+// Add URL of your app to env variable or enable Dyno Metadata
+// to get this automatically
+// See: https://devcenter.heroku.com/articles/dyno-metadata
+const url = process.env.APP_URL || 'https://<app-name>.herokuapp.com:443';
+const bot = new TelegramBot(TOKEN, options);
 
-app.post(URI, async (req, res) => {
-    try {
-        console.log(req.body);
-        const chatId = req.body.message.chat.id;
-        const text = req.body.message.text;
-        
-        await axios.post(`${TELEGRAM_API}/sendMessage`, {
-            chat_id: chatId,
-            text: text
-        });
-        
-        res.sendStatus(200);
-    } catch (error) {
-        console.error('Error handling incoming message:', error.message);
-        res.sendStatus(500);
-    }
-});
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, async () => {
-    console.log(`🚀 app running on port ${PORT}`);
-    await init();
+// This informs the Telegram servers of the new webhook.
+// Note: we do not need to pass in the cert, as it already provided
+bot.setWebHook(`${url}/bot${TOKEN}`);
+
+
+// Just to ping!
+bot.on('message', function onMessage(msg) {
+  bot.sendMessage(msg.chat.id, 'I am alive on Heroku!');
 });
