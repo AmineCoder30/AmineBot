@@ -16,7 +16,10 @@ bot.setWebHook(`${url}/bot${TOKEN}`);
 bot.on('message', function onMessage(msg) {
     const { message_id: originalMessageId, chat: { id: chatId } } = msg;
     const item = questionList[Math.floor(Math.random() * questionList.length)];
-    bot.sendMessage(chatId, ` ${item}?`, {
-        reply_to_message_id: originalMessageId
-      });
+    if (msg.text.toLowerCase() === "ask") {
+        bot.sendMessage(chatId, ` ${item}؟`, {
+            reply_to_message_id: originalMessageId
+          });
+    }
+
 });
