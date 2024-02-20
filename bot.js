@@ -1,6 +1,7 @@
-const TelegramBot = require('node-telegram-bot-api');
+import TelegramBot from 'node-telegram-bot-api';
 import questionList from "./Question.js";
-require('dotenv').config();
+import dotenv from 'dotenv'
+dotenv.config();
 
 const TOKEN = process.env.TELEGRAM_TOKEN ;
 const options = {
@@ -11,6 +12,7 @@ const options = {
 
 const url = process.env.APP_URL || 'https://amine-bot.vercel.app';
 const bot = new TelegramBot(TOKEN, options);
+
 bot.setWebHook(`${url}/bot${TOKEN}`);
 
 bot.on('message', function onMessage(msg) {
